@@ -429,15 +429,18 @@ exit /b
 
 
 @echo off
-:: Ask for the word to use as FNAME
-set /p FNAME Enter your name: 
+:: Toggle between manual and auto name setting
+set /p MODE=Enter mode (manual/auto): 
 
-:: Confirm it
-echo You entered: %FNAME%
+if /i "%MODE%"=="manual" (
+    set /p FNAME=Enter your name: 
+) else (
+    for /f "tokens=2 delims==" %%A in ('"wmic computersystem get username /value"') do set "FNAME=%%A"
+)
+
+echo FNAME is: %FNAME%
 pause
 
-:: Now use %FNAME% in your script logic
-echo Hello, %FNAME%! Running the rest of the script...
 
 
 

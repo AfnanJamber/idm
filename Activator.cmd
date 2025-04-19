@@ -429,7 +429,6 @@ exit /b
 
 
 @echo off
-:: Toggle between manual and auto name setting
 set /p MODE=Enter mode (manual/auto): 
 
 if /i "%MODE%"=="manual" (
@@ -438,7 +437,7 @@ if /i "%MODE%"=="manual" (
     for /f "tokens=2 delims==" %%A in ('"wmic computersystem get username /value"') do set "FNAME=%%A"
 )
 
-echo FNAME is: %FNAME%
+echo Your FNAME is: %FNAME%
 pause
 
 

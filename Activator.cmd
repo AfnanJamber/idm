@@ -434,7 +434,21 @@ set /p MODE=Enter mode (manual/auto):
 if /i "%MODE%"=="manual" (
     set /p FNAME=Enter your name: 
 ) else (
-    for /f "tokens=2 delims==" %%A in ('"wmic computersystem get username /value"') do set "FNAME=%%A"
+    
+:: Set FNAME manually or automatically
+set USE_CUSTOM_NAME=1
+
+if "%USE_CUSTOM_NAME%"=="1" (
+    set "FNAME=AfnanJamber"
+) else (
+    for /f "tokens=2 delims==" %%A in ('"wmic computersystem get username /value"') do (
+        set "FNAME=%%A"
+    )
+)
+setlocal enabledelayedexpansion
+echo FNAME is: !FNAME!
+endlocal
+
 )
 
 echo Your FNAME is: %FNAME%

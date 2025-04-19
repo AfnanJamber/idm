@@ -429,31 +429,15 @@ exit /b
 
 
 @echo off
-set /p MODE=Enter mode (manual/auto): 
+:: Ask for the word to use as FNAME
+set /p FNAME Enter your name: 
 
-if /i "%MODE%"=="manual" (
-    set /p FNAME=Enter your name: 
-) else (
-    
-:: Set FNAME manually or automatically
-set USE_CUSTOM_NAME=1
-
-if "%USE_CUSTOM_NAME%"=="1" (
-    set "FNAME=AfnanJamber"
-) else (
-    for /f "tokens=2 delims==" %%A in ('"wmic computersystem get username /value"') do (
-        set "FNAME=%%A"
-    )
-)
-setlocal enabledelayedexpansion
-echo FNAME is: !FNAME!
-endlocal
-
-)
-
-echo Your FNAME is: %FNAME%
+:: Confirm it
+echo You entered: %FNAME%
 pause
 
+:: Now use %FNAME% in your script logic
+echo Hello, %FNAME%! Running the rest of the script...
 
 
 
@@ -815,3 +799,4 @@ set "_Yellow="0E""
 exit /b
 
 ::========================================================================================================================================
+
